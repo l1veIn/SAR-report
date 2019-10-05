@@ -1,4 +1,9 @@
-imagepath <- "../Data/Images/ESAR/"
+source("myread.ENVI.R")
+source("imagematrix.R")
+require(ggplot2)
+require(reshape2)
+require(ggthemes)
+imagepath <- "../Statistics-SAR-Intensity-master 2/Data/Images/ESAR/"
 HH_Complex <- myread.ENVI(paste(imagepath,
                                   "ESAR97HH.DAT", sep = ""), 
                             paste(imagepath, "ESAR97HH.hdr", sep = ""))
@@ -65,6 +70,8 @@ LogLikelihoodLknown <- function(params) {
       (p_alpha-p_L)*sum(log(p_gamma + z*p_L)) 
   )
 }
+
+z <- vexample$HH
 
 estim.exampleML <- maxNR(LogLikelihoodLknown, 
                        start=c(estim.example$alpha, estim.example$gamma,1), 
